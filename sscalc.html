@@ -1,240 +1,158 @@
 
 <!DOCTYPE html>
-<!--[if IE 8 ]><html dir="ltr" lang="ru" class="ie8"><![endif]-->
-<!--[if IE 9 ]><html dir="ltr" lang="ru" class="ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
 <html dir="ltr" lang="ru">
-<!--<![endif]-->
 <head>
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
 	<meta charset="UTF-8">
 	<title>Калькулятор цепи</title>
-	<meta name="description" content="Заказ велосипедных запчастей. Доставка под заказ." />
+	<meta name="description" content="Magic gear calculator" />
 	<meta name="keywords" content= "magic gear chain length calculator" />
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
+	<style>
+	body > .container-fluid {
+		min-width:20em;
+	}
+
+	.well {
+			background: #d9edf7;
+	}
+
+	#lang {
+		float:right;
+	}
+
+	.result, .result_ch
+	{
+		display: none;
+	}
+
+	/*#lang {
+		position:fixed;
+		bottom:1em;
+		left:1em;
+		z-index:100!important;
+	}*/
+
+	#lang > button,
+	#lang .btn-group>.btn:hover {
+		z-index:100!important;
+	}
+
+	.row {
+	padding: 0.6ex;
+	}
+
+	#result div.row:nth-child(even){
+			background-color: #f9f9f9;
+	}
+
+	#result div.row:hover {
+			background-color: #f5f5f5;
+	}
+
+	input[id^=r_], input[id^=rw_],
+	input[id^=r_]::-webkit-inner-spin-button, 
+	input[id^=r_]::-webkit-outer-spin-button,
+	input[id^=rw_]::-webkit-inner-spin-button, 
+	input[id^=rw_]::-webkit-outer-spin-button {
+		-moz-appearance: textfield;
+		-webkit-appearance: none;
+		margin: 0; /* Removes leftover margin */
+	}
+
+	input.form-control {
+		display:inline;
+		width:10ex;
+		padding:1ex;
+	}
+
+	input[id^=r_] {
+		min-width:8ex;
+		width:8ex;
+	}
+
+	input[id^=rw_] {
+		min-width:16.4ex;
+		width:16.4ex;
+	}
+
+	.tab-content {
+		border:1px solid #ddd;
+		border-radius:5px;
+	}
+
+	.tab-content > div.row {
+		padding-left:0px;
+		padding-right:0px;
+		padding-top:0px;
+	}
+
+	a[data-toggle="collapse"] {
+		cursor: pointer;
+		font-size:2.2ex;
+		line-height:3ex;
+		padding-left:0.5ex;
+	}
+
+	div[id^=tr_] {
+		border-top: 1px dotted silver;
+	}
+
+	.heading {
+		display:inline-block;
+		width:100%;
+		line-height:2em;
+	}
+
+	.heading input {
+		min-width:2ex;
+	}
+
+	.heading span {
+		cursor:pointer;
+	}
+
+	.btn-check {
+		float:right;
+	}
+
+	.highlight {
+		background:lightyellow!important;
+	}
+
+	/*
+	div[id^=svg_] {
+		height: 0;
+		padding-top: 30%;
+		position: relative;
+	}
+
+	div[id^=svg_] svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	*/
+	</style>
 </head>
-<body class="information-information-9">
-	<nav id="top" >
-	  <div class="container">
-	    	    	    <div id="top-links" class="nav pull-right">
-	      <ul class="list-inline">
-	        <li class="dropdown"><a href="https://chainhook.ru/index.php?route=account/account" title="Личный кабинет" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md">Личный кабинет</span> <span class="caret"></span></a>
-	          <ul class="dropdown-menu dropdown-menu-right">
-	            	            <li><a href="https://chainhook.ru/index.php?route=account/register">Регистрация</a></li>
-	            <li><a href="https://chainhook.ru/index.php?route=account/login">Авторизация</a></li>
-	            	          </ul>
-	        </li>
-	        <li><a href="https://chainhook.ru/index.php?route=account/wishlist" id="wishlist-total" title="Закладки (0)"><i class="fa fa-heart"></i> <span class="hidden-xs hidden-sm hidden-md">Закладки (0)</span></a></li>
-	        <li><a href="http://chainhook.ru/index.php?route=checkout/cart" title="Корзина"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">Корзина</span></a></li>
-	        <li><a href="https://chainhook.ru/index.php?route=checkout/checkout" title="Оформление заказа"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">Оформление заказа</span></a></li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
+<body>
 	<a name="top" id="top"></a>
-	<header>
-	  <div class="container">
-	    <div class="row">
-	      <div class="col-sm-2">
-	        <div id="logo">
-	          	          <a href="http://chainhook.ru/index.php?route=common/home"><img src="https://chainhook.ru/image/catalog/chain-hook.png" title="Chain-hook" alt="Chain-hook" class="img-responsive" /></a>
-	          	        </div>
-	      </div>
-	      	      	  		<div class="col-sm-5">
-                <div class="center-block hidden-xs hidden-sm">
-                    <div class="header-c-block">
-                        <a href="http://chainhook.ru/index.php?route=information/contact"><i class="fa fa-phone"></i>&nbsp;+7-900-491-17-71</a>
-                    </div>
-                    <div class="header-c-block">
-                    	<a href="mailto:info@chainhook.ru"><i class="fa fa-envelope"></i>&nbsp;info@chainhook.ru</a>
-                    </div>
-                    <div id="vk_contact_us" class="header-c-block"></div>
-                </div>
-            </div>
-	    	<div class="col-sm-5"><div id="search" class="input-group">
-  <input type="text" name="search" value="" placeholder="Поиск" class="form-control input-lg" />
-  <span class="input-group-btn">
-    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
-  </span>
-</div><div id="cart" class="btn-group btn-block">
-  <button type="button" data-toggle="dropdown" data-loading-text="Загрузка..." class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">Товаров 0 (0.00₽)</span></button>
-  <ul class="dropdown-menu pull-right">
-        <li>
-      <p class="text-center">Ваша корзина пуста!</p>
-    </li>
-      </ul>
-</div>
-</div>
-          	    </div>
-	  </div>
-	</header>
-	<div class="container">
-	  <nav id="menu" class="navbar bg-primary">
-	    <div class="navbar-header"><span id="category" class="visible-xs">Категории</span>
-	      <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-	    </div>
-	    <div class="collapse navbar-collapse navbar-ex1-collapse">
-	      <ul class="nav navbar-nav">
-	        	        		        <li><a href="http://chainhook.ru/bike-wheels">Колеса</a></li>
-	        	        	        		        <li><a href="http://chainhook.ru/clothing-equipment">Одежда и снаряжение</a></li>
-	        	        	        		        <li class="dropdown">
-		          <a href="http://chainhook.ru/gear-drive" class="dropdown-toggle hidden-md hidden-lg" data-toggle="dropdown">Привод</a>
-		          <a href="http://chainhook.ru/gear-drive" class="hidden-xs hidden-sm">Привод</a>
-		          <div class="dropdown-menu">
-		            <div class="dropdown-inner">
-		              		              <ul class="list-unstyled">
-		                		                <li><a href="http://chainhook.ru/gear-drive/chains-belts-shafts"><i class="fa fa-link"></i>Цепи</a></li>
-		                		                <li><a href="http://chainhook.ru/gear-drive/chainrings-sprockets"><i class="fa fa-link"></i>Остальное</a></li>
-		                		              </ul>
-		              		            </div>
-		            <a href="http://chainhook.ru/gear-drive" class="see-all hidden-md hidden-lg">Привод &mdash; все товары</a> </div>
-		        </li>
-		    	        	        		        <li><a href="http://chainhook.ru/seat_equipment">Седельные системы</a></li>
-	        	        	        		        <li><a href="http://chainhook.ru/bike-brakes">Тормоза</a></li>
-	        	        	        		        <li><a href="http://chainhook.ru/handlebars-grips">Управление</a></li>
-	        	        	      </ul>
-	    </div>
-	  </nav>
-	</div>
+
 <div class="container">
   <ul class="breadcrumb">
-        <li><a href="http://chainhook.ru/index.php?route=common/home"><i class="fa fa-home"></i></a></li>
-        <li><a href="http://chainhook.ru/chain-length-calculator">Калькулятор длины цепи и размера звезд велосипеда</a></li>
-      </ul>
-  <div class="row">                <div id="content" class="col-sm-12">      <h1>Калькулятор длины цепи и размера звезд велосипеда</h1>
-      <style>
-body > .container-fluid {
-  min-width:20em;
-}
-
-.well {
-    background: #d9edf7;
-}
-
-#lang {
-  float:right;
-}
-
-.result, .result_ch
-{
-  display: none;
-}
-
-/*#lang {
-  position:fixed;
-  bottom:1em;
-  left:1em;
-  z-index:100!important;
-}*/
-
-#lang > button,
-#lang .btn-group>.btn:hover {
-  z-index:100!important;
-}
-
-.row {
-padding: 0.6ex;
-}
-
-#result div.row:nth-child(even){
-    background-color: #f9f9f9;
-}
-
-#result div.row:hover {
-    background-color: #f5f5f5;
-}
-
-input[id^=r_], input[id^=rw_],
-input[id^=r_]::-webkit-inner-spin-button, 
-input[id^=r_]::-webkit-outer-spin-button,
-input[id^=rw_]::-webkit-inner-spin-button, 
-input[id^=rw_]::-webkit-outer-spin-button {
-  -moz-appearance: textfield;
-  -webkit-appearance: none;
-  margin: 0; /* Removes leftover margin */
-}
-
-input.form-control {
-  display:inline;
-  width:10ex;
-  padding:1ex;
-}
-
-input[id^=r_] {
-  min-width:8ex;
-  width:8ex;
-}
-
-input[id^=rw_] {
-  min-width:16.4ex;
-  width:16.4ex;
-}
-
-.tab-content {
-  border:1px solid #ddd;
-  border-radius:5px;
-}
-
-.tab-content > div.row {
-  padding-left:0px;
-  padding-right:0px;
-  padding-top:0px;
-}
-
-a[data-toggle="collapse"] {
-  cursor: pointer;
-  font-size:2.2ex;
-  line-height:3ex;
-  padding-left:0.5ex;
-}
-
-div[id^=tr_] {
-  border-top: 1px dotted silver;
-}
-
-.heading {
-  display:inline-block;
-  width:100%;
-  line-height:2em;
-}
-
-.heading input {
-  min-width:2ex;
-}
-
-.heading span {
-  cursor:pointer;
-}
-
-.btn-check {
-  float:right;
-}
-
-.highlight {
-  background:lightyellow!important;
-}
-
-/*
-div[id^=svg_] {
-  height: 0;
-  padding-top: 30%;
-  position: relative;
-}
-
-div[id^=svg_] svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-*/
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+			<li><a href="http://chainhook.ru/index.php?route=common/home"><i class="fa fa-home"></i></a></li>
+			<li><a href="http://chainhook.ru/chain-length-calculator">Калькулятор длины цепи и размера звезд велосипеда</a></li>
+  </ul>
+  <div class="row">
+		<div id="content" class="col-sm-12">
+			<h1>Калькулятор длины цепи и размера звезд велосипеда</h1>
+			
 <form name="mainform" id="mainform">
 <div class="container-fluid">
   
@@ -757,122 +675,4 @@ div[id^=svg_] svg {
 </script></div>
     </div>
 </div>
-<footer>
-  <div class="container">
-    <div class="row">
-            <div class="col-sm-3">
-        <h5>Информация</h5>
-        <ul class="list-unstyled">
-                    <li><a href="http://chainhook.ru/about_us">О нас</a></li>
-                    <li><a href="http://chainhook.ru/delivery">Доставка</a></li>
-                    <li><a href="http://chainhook.ru/terms">Способы оплаты</a></li>
-                    <li><a href="http://chainhook.ru/privacy">Оферта</a></li>
-                                <li><a href="/news">Новости</a></li>
-                                <li><a href="/articles">Статьи</a></li>
-                  </ul>
-      </div>
-            <div class="col-sm-3">
-        <h5>Полезное</h5>
-        <ul class="list-unstyled">
-          <li><a href="http://chainhook.ru/index.php?route=information/contact">Обратная связь</a></li>
-          <li><a href="https://chainhook.ru/index.php?route=account/return/add">Возврат товара</a></li>
-          <li><a href="http://chainhook.ru/index.php?route=information/sitemap">Карта сайта</a></li>
-          <li><a href="/chain-length-calculator">Калькулятор длины цепи и размера звезд велосипеда</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Дополнительно</h5>
-        <ul class="list-unstyled">
-          <li><a href="http://chainhook.ru/index.php?route=product/manufacturer">Производители</a></li>
-          <li><a href="https://chainhook.ru/index.php?route=account/voucher">Подарочные сертификаты</a></li>
-                    <li><a href="http://chainhook.ru/index.php?route=product/special">Акции</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Личный Кабинет</h5>
-        <ul class="list-unstyled">
-          <li><a href="https://chainhook.ru/index.php?route=account/account">Личный Кабинет</a></li>
-          <li><a href="https://chainhook.ru/index.php?route=account/order">История заказов</a></li>
-          <li><a href="https://chainhook.ru/index.php?route=account/wishlist">Закладки</a></li>
-          <li><a href="https://chainhook.ru/index.php?route=account/newsletter">Рассылка</a></li>
-        </ul>
-      </div>
-    </div>
-    <hr>
-    <p>Chain-hook <span class="copyleft">&copy;</span> 2019. Все материалы этого сайта можно свободно использовать и копировать.</p>
-  </div>
-</footer>
-<!-- VK Widget -->
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?144"></script>
-    <div id="vk_community_messages" class="hidden-xs"></div>
-    <script type="text/javascript">
-
-    function onCanNotWrt(ob)
-    {
-        ob.expanded = 0;
-        welcomeScreen = 1;
-    }
-
-    if($('#vk_community_messages').length > 0)
-    {
-        var msgWidget = VK.Widgets.CommunityMessages("vk_community_messages", 145559794, {
-            expanded: "0",
-            //welcomeScreen:"1",
-            tooltipButtonText: "Есть вопрос?",
-            onCanNotWrite: onCanNotWrt(this),
-        });
-    }
-
-    // === news ===
-
-    if(window.location.href.indexOf("news") > -1)
-    {
-
-      newsWidget = VK.Widgets.Group("vk_group_news", {mode: 4, width: "auto", wide: 1, no_cover: 1, height: "600"}, 145559794);
-
-      function VK_Widget_Init()
-      {
-          // var cWidth = document.getElementById("vk_group_news").clientWidth;
-          var cWidth = $('#vk_group_news').parent().width();
-          //document.getElementById('vk_group_news').innerHTML = '';
-          // VK.Widgets.Group.destroy("vk_group_news");
-          $('#vk_group_news').empty();
-          var newsWidget = VK.Widgets.Group("vk_group_news", {mode: 4, width: cWidth, wide: 1, no_cover: 1, height: "800"}, 145559794);
-      };
-      // window.addEventListener('load', VK_Widget_Init, false);
-      window.addEventListener('resize', VK_Widget_Init, false);
-
-    }
-
-    // === contact us ===
-
-    VK.Widgets.ContactUs("vk_contact_us", {height: 30}, -145559794);
-
-    // === recomendations ===
-
-    if(window.location.href.indexOf("articles") > -1)
-    {
-      VK.init({apiId: 6018839, onlyWidgets: true});
-      VK.Widgets.Recommended("vk_recommended", {limit: 5, period: 'month'});
-    }
-
-    // === post ===
-
-    if($('#vk_post_widget').length > 0)
-    {
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//vk.com/js/api/openapi.js?146";
-        fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'vk_openapi_js'));
-
-        (function() {
-        if (!window.VK || !VK.Widgets || !VK.Widgets.Post || !VK.Widgets.Post('vk_post_widget', -145559794, 645, 'Huh8OHXsDlQ639BEFy8n41oZzv4_')) setTimeout(arguments.callee, 50);
-        }());
-    }
-    else console.log('vk_post_widget disabled for this page');
-
-    </script>
-<!-- /VK Widget -->
 </body></html>
