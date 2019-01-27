@@ -1,0 +1,422 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PageSpeed</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.2.0/vue-resource.js"></script>
+    <!-- http://vuetips.com/bootstrap
+    <link rel="stylesheet" href="//unpkg.com/element-ui@1.4.3/lib/theme-default/index.css">
+    <script src="//unpkg.com/element-ui@1.4.3/lib/index.js"></script>
+    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css"> --> <!-- http://bulma.io/documentation/columns/basics/ -->
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+
+    <style type="text/css">
+      [v-cloak], input.edit { display: none; }
+      .calendar-text { margin-top: .3em; }
+      .file-text { margin-top: .2em; }
+      .divTable{
+        display: table;
+        width: 100%;
+      }
+      .divTableRow {
+        display: table-row;
+      }
+      .divTableHeading {
+        /* background-color: #EEE; */
+        display: table-header-group;
+      }
+      .divTableCell, .divTableHead {
+        display: table-cell;
+      }
+      .divTableHeading {
+        /* background-color: #EEE; */
+        display: table-header-group;
+        font-weight: bold;
+      }
+      .divTableFoot {
+        /* background-color: #EEE; */
+        display: table-footer-group;
+        font-weight: bold;
+      }
+      .divTableBody {
+        display: table-row-group;
+      }
+      .divTableRow .divTableCell:nth-child(2) {
+      width:80%;
+      vertical-align:middle;
+      }
+      .divTableRow .divTableCell:nth-child(n+3) {
+        min-width:2.2em;
+      }
+      .divTableRow .divTableCell:nth-child(2n+3) {
+        color:blue;
+      }
+      .divTableRow .fa-stack .score, .divTableRow .fa-stack .score {
+        top: 0.2ex;
+      }
+      .list-enter-active, .list-leave-active {
+        transition: all 1s;
+      }
+      .list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+      }
+      .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0
+      }
+    </style>
+
+
+    <script type="text/javascript">
+    document.onreadystatechange = () => {
+      if (document.readyState === 'complete') {
+        // https://ru.vuejs.org/v2/examples/todomvc.html
+
+        function extractHostname(url) {
+            var hostname; //find & remove protocol (http, ftp, etc.) and get hostname
+
+            if (url.indexOf("//") > -1) hostname = url.split('/')[2];
+              else hostname = url.split('/')[0];
+            
+            hostname = hostname.split(':')[0]; //find & remove port number
+            hostname = hostname.split('?')[0]; //find & remove "?"
+
+            return hostname;
+        }
+
+        function isURL(str) {
+          var pattern = new RegExp('^(https?:\\/\\/)'+ // protocol '^(https?:\\/\\/)?'
+          '((\\w([\\w\\d-]*[\\w\\d])*)\\.?)+[\\w]{2,}'+ // domain name '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}'
+          // '|((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+          '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+          return pattern.test(str);
+        }
+
+        // localStorage persistence
+        var STORAGE_KEY = 'todos-vuejs-2.0'
+        var todoStorage = {
+          fetch: function () {
+            var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+            todos.forEach(function (todo, index) {
+              todo.id = index
+            })
+            todoStorage.uid = todos.length
+            return todos
+          },
+          save: function (todos) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+          }
+        }
+
+        // visibility filters
+        var filters = {
+          all: function (todos) {
+            return todos
+          },
+          active: function (todos) {
+            return todos.filter(function (todo) {
+              return !todo.completed
+            })
+          },
+          completed: function (todos) {
+            return todos.filter(function (todo) {
+              return todo.completed
+            })
+          }
+        }
+
+        Vue.use(VueResource)
+
+        // app Vue instance
+        var app = new Vue({
+          // app initial state
+          data: {
+            title: 'Добавить сайт',
+            curr_date: new Date().toLocaleString(),
+            todos: todoStorage.fetch(),
+            newTodo: '',
+            editedTodo: null,
+            visibility: 'all'
+          },
+
+          // watch todos change for localStorage persistence
+          watch: {
+            todos: {
+              handler: function (todos) {
+                todoStorage.save(todos)
+              },
+              deep: true
+            }
+          },
+
+          // computed properties
+          // http://vuejs.org/guide/computed.html
+          computed: {
+            filteredTodos: function () {
+              return filters[this.visibility](this.todos)
+            },
+            remaining: function () {
+              return filters.active(this.todos).length
+            },
+            allDone: {
+              get: function () {
+                return this.remaining === 0
+              },
+              set: function (value) {
+                this.todos.forEach(function (todo) {
+                  todo.completed = value
+                })
+              }
+            }
+          },
+
+          filters: {
+            pluralize: function (n) {
+              return n === 1 ? 'item' : 'items'
+            }
+          },
+
+          // methods that implement data logic.
+          // note there's no DOM manipulation here at all.
+          methods: {
+            addTodo: function () {
+
+              var value = this.newTodo && this.newTodo.trim()
+              var todo_id = todoStorage.uid+1;
+              var old_id = (this.todos.findIndex((obj => obj.title == value)));
+
+              if (!value || !isURL(value))
+              {
+                console.warn("input is not an url");
+                alert("input is not an url"); // https://ru.vuejs.org/v2/examples/modal.html
+                this.newTodo = ''
+                return
+              }
+
+              if(old_id < 0)
+              {
+                old_id = todo_id;
+                this.todos.push({
+                  id: old_id,
+                  title: value,
+                  // first: undefined,
+                  // score: undefined,
+                  // mfirst: undefined,
+                  // mscore: undefined,
+                  completed: false
+                })
+              }
+              
+              this.addRec(value, todo_id, 'desktop');
+              this.addRec(value, todo_id, 'mobile');
+
+              todoStorage.uid++;
+              this.newTodo = '';
+            },
+
+            removeTodo: function (todo) {
+              this.todos.splice(this.todos.indexOf(todo), 1)
+            },
+
+            editTodo: function (todo) {
+              //this.beforeEditCache = todo.title
+              //this.editedTodo = todo
+            },
+
+            doneEdit: function (todo) {
+              if (!this.editedTodo) {
+                return
+              }
+              this.editedTodo = null
+              todo.title = todo.title.trim()
+              if (!todo.title) {
+                this.removeTodo(todo)
+              }
+            },
+
+            cancelEdit: function (todo) {
+              this.editedTodo = null
+              todo.title = this.beforeEditCache
+            },
+
+            removeCompleted: function () {
+              this.todos = filters.active(this.todos)
+            },
+
+            addRec :function  (value, todo_id, mode) {
+
+              this.$http.get('https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url='+encodeURI(value)+'&strategy='+(mode == 'desktop' ? 'desktop' : 'mobile')).then(
+                  function (response) { // Success.
+
+                    console.log(mode);
+                      if(response.data.ruleGroups.SPEED.score != undefined)
+                      {
+                        old_id = (this.todos.findIndex((obj => obj.title == value)));
+
+                        if(old_id >= 0)
+                        {
+                          if(this.todos[old_id][(mode=='desktop'?'' :'m')+"first"] == undefined && this.todos[old_id][(mode=='desktop'?'' :'m')+'score'] > 0)
+                          {
+                            this.todos[old_id][(mode=='desktop'?'' :'m')+"first"] = this.todos[old_id][(mode=='desktop'?'' :'m')+'score'];
+                            this.todos.splice(old_id, 1, this.todos[old_id]);
+                          }
+
+                          this.todos[old_id][(mode=='desktop'?'' :'m')+'score'] = response.data.ruleGroups.SPEED.score;
+                          this.todos.splice(old_id, 1, this.todos[old_id]);
+                          // todoStorage.save(this.todos);
+                        }
+                        else
+                        {
+                          if(mode=='desktop')
+                          {
+                            this.todos.push({
+                              id: todo_id,
+                              title: value,
+                              score: response.data.ruleGroups.SPEED.score,
+                              completed: false
+                            })
+                          }
+                          else
+                          {
+                            this.todos.push({
+                              id: todo_id,
+                              title: value,
+                              mscore: response.data.ruleGroups.SPEED.score,
+                              completed: false
+                            })
+                          }
+                          
+                        }
+                      }
+                      else
+                      {
+                        alert("error - no result found");
+                        console.warn('error - no result found');
+                        return
+                      }
+                      // app.$forceUpdate();
+                    }
+                  ).catch(function (err) { console.error(err); });
+            }
+          },
+
+          // a custom directive to wait for the DOM to be updated
+          // before focusing on the input field.
+          // http://vuejs.org/guide/custom-directive.html
+          directives:
+          {
+            'todo-focus': function (el, binding) {
+              if (binding.value) {
+                el.focus()
+              }
+            }
+          }
+
+
+        }) // end of app
+
+        // handle routing
+        function onHashChange () {
+          var visibility = window.location.hash.replace(/#\/?/, '')
+          if (filters[visibility]) {
+            app.visibility = visibility
+          } else {
+            window.location.hash = ''
+            app.visibility = 'all'
+          }
+        }
+
+        window.addEventListener('hashchange', onHashChange)
+        onHashChange()
+
+        // mount
+        app.$mount('.todoapp')
+
+      }
+    };      
+    </script>
+  </head>
+  <body>
+    <section class="todoapp section">
+      <header class="header container">
+        <h1 class="subtitle"><a href="./index.html">PageSpeed</a></h1>
+        <input class="new-todo" autofocus autocomplete="off" :placeholder="title" v-model="newTodo" @keyup.enter="addTodo" tabindex="1" :title="title">
+      </header>
+      <section class="main container" v-show="todos.length" v-cloak>
+        <input class="toggle-all" type="checkbox" v-model="allDone">
+        <ul class="todo-list" v-if="todos.length > 0">
+          <transition-group name="list">
+          <li v-for="todo in filteredTodos"
+            class="todo"
+            :key="todo.id"
+            :class="{ completed: todo.completed, editing: todo == editedTodo }">
+            <div class="view divTable">
+              <div class="divTableBody">
+                <div class="divTableRow">
+                  <div class="divTableCell">
+                    <input class="toggle" type="checkbox" v-model="todo.completed">
+                  </div>
+                  <div class="divTableCell" :title="todo.title">
+                    <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+                  </div>
+                  <div class="divTableCell fa-stack fa-sm" v-bind:title="todo.first">
+                    <i class="fa fa-tv fa-stack-2x score" v-if="todo.first"></i>
+                    <i class="fa fa fa-stack-1x score"    v-if="todo.first">{{ todo.first }}</i>
+                  </div>
+                  <div class="divTableCell fa-stack fa-sm" v-if="todo.score">
+                    <i class="fa fa-tv fa-stack-2x score"  v-if="todo.score"></i>
+                    <transition name="fade" appear>
+                      <i class="fa fa-stack-1x score">{{ todo.score }}</i>
+                    </transition>
+                  </div>
+                  <div class="divTableCell fa-stack fa-sm" v-bind:title="todo.mfirst">
+                      <i class="fa fa-tablet fa-stack-2x score" v-if="todo.mfirst"></i>
+                      <i class="fa fa fa-stack-1x score"        v-if="todo.mfirst">{{ todo.mfirst }}</i>
+                  </div>
+                  <div class="divTableCell fa-stack fa-sm">
+                    <i class="fa fa-tablet fa-stack-2x score" v-if="todo.mscore"></i>
+                    <transition name="fade" appear>
+                      <i class="fa fa-stack-1x score"           v-if="todo.mscore">{{ todo.mscore }}</i>
+                    </transition>
+                  </div>
+                  <div class="divTableCell">
+                    <button class="destroy" @click="removeTodo(todo)"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input class="edit" type="text"
+              v-model="todo.title"
+              v-todo-focus="todo == editedTodo"
+              @blur="doneEdit(todo)"
+              @keyup.enter="doneEdit(todo)"
+              @keyup.esc="cancelEdit(todo)">
+          </li>
+          </transition-group>
+        </ul>
+        <p v-else>Ничего не найдено, добавьте сайт.</p>
+      </section>
+      <footer class="footer container" v-show="todos.length" v-cloak>
+        <span class="todo-count">
+          <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
+        </span>
+        <ul class="filters">
+          <li><a href="#/all" :class="{ selected: visibility == 'all' }">All</a></li>
+          <li><a href="#/active" :class="{ selected: visibility == 'active' }">Active</a></li>
+          <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a></li>
+        </ul>
+        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+          Clear completed
+        </button>
+      </footer>
+    </section>   
+  </body>
+</html>
