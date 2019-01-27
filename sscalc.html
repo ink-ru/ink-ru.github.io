@@ -631,11 +631,23 @@ div[id^=svg_] svg {
           // количество звеньев
           links = Math.round(l/$("#pitch").val());
           result['chain_links'] = links;
-          // провисание цепи
-          hit = (l/$("#pitch").val()) - Math.floor(l/$("#pitch").val());
+	      
+          
         
           // проверка длины цепи и четности звеньев
-          if(hit < 0.5 && isEven(links)) result['match'] = true;
+	  if(isEven(links))
+	  {
+		// провисание цепи
+          	hit = (l/$("#pitch").val()) - Math.floor(l/$("#pitch").val());
+          	if(hit < 0.3)
+		{
+			result['match'] = true;
+		}
+		else if(hit > 0.7)
+		{
+			result['match'] = true;
+		}
+	  }
         
         return result;
       }
