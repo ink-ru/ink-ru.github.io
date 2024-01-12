@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="ru">
+<head>
+	<title>Proforientation</title>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<noscript>
+		<!-- <meta http-equiv="Refresh" CONTENT="7;URL=nojs.html"> -->
+		<style>
+         dialog#noscript {display: block;}
+    </style>
+	</noscript>
+
+	<link rel="mask-icon" href="https://github.githubassets.com/assets/pinned-octocat-093da3e6fa40.svg" color="#000000">
+	<link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png">
+	<link rel="alternate icon" class="js-site-favicon" type="image/png" href="https://github.githubassets.com/favicons/favicon.png">
+	<link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<!-- // https://www.jstree.com/ -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script> -->
+	<script language="JavaScript" type="text/javascript" src="script.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style id="import_css"></style>
+
+</head>
+
+<body>
+<div id="main-wrapper" class="wrapper">
+  <header>
+    <center>
+			<h2><span id="title_acent">Prof</span><span id="title_smoke">orientation<span></h2>
+	</center>
+	<nav>
+		<ul>
+          <li class="active"><a href="./index.html">Home</a></li>
+          <li><a id="expand_all" href="#">Expand</a></li>
+        </ul>
+	</nav>
+		<!-- no script -->
+		<noscript>
+			<dialog open id="noscript">
+				<figure id="dialog-box" class="warning">
+				    <figcaption>Satic content only!</figcaption>
+				    <p>Your browser doesn't support JavaScript</p>
+				</figure>
+			  <form method="dialog">
+				  <input type="checkbox" id="dialogInput">
+					<label for="dialogInput">OK</label>
+			    <!-- <button type="submit">OK</button> -->
+			  </form>
+			</dialog>
+    </noscript>
+		<!-- no script -->
+  </header>
+
+  <main>
+    <section id="place"></section>
+  </main>
+
+  <footer>
+  </footer>
+</div>
+<script type="text/javascript">
+
+// https://github.com/nodeca/js-yaml
+
+	var data =
+	{
+    
+
+    "Тяжелая промысшленность":
+    {
+     	// descr: 'link2',
+	    "Обрабатывающая промышленность": { descr: 'Преобразование метералов',
+	     					"Металлургия": { "terminator" : "" },
+	     				},
+	    "Добывающая промышленность": { descr: 'Природные материалы',
+	         		"Геология": { "terminator" : "" }
+	          },
+	    "Химическая промышленность" : {
+	      	"Фармакологический сектор": { descr: '<ul><li class="red">Смесь лекарств (ACC+амброксол+метилурацил)</li><li class="red">Аптека (+онлайн)</li></ul>' },
+	      	"Полимеры и композиты": { "terminator" : "" },
+	      	"Микробиологическая промышленность": { "terminator" : "" },
+	      },
+		"Машиностроение": {
+			"Cтанкостроение, производство инструментов": { "terminator" : "" },
+			"Производство транспортных средств": { "terminator" : "" },
+		},
+		"Электрооборудование": { "terminator" : "" },
+		"Транспорировка и логистика": { "terminator" : "" },
+		"Лесная, деревообрабатывающая и целлюлозно-бумажная промышленность": { descr: '<ul><li>Стеновые панели из фанеры, пластика</li></ul>' },
+		"Строительство, производство строительных материалов": { descr: '<ul><li>Стеновые панели из фанеры, пластика</li></ul>' }
+	},
+
+	"Производственный сектор":
+	{
+		"Товары народного потребления": { descr: '<ul><li class="yellow">""Тормозные диски, ножи, фанерные педали, \
+			номера квартир и домов, книги из металла""</li></ul>' },
+	},
+
+	"Аэрокосмический сектор":
+	{
+		"Авиация": { "terminator" : "" },
+		"Космос": { "terminator" : "" },
+	},
+
+
+    "Легкая промысшленность":
+    {
+     	// descr: 'link3',
+			  "Стекольная и фарфоро-фаянсовая промышленность": { "terminator" : "" },
+        "Текстильное производство": { "terminator" : "" },
+        "Швейное, обувное производство": { "terminator" : "" },
+        "Кожевенное, меховое производство": { descr: '<ul><li>Стеновые панели из кожи</li><li>Скатерти, коврики для мыши из кожи</li></ul>' },
+        "Полиграфическая промышленность": { descr: '<ul><li class="green">Наклейки на машины, велосипеды</li></ul>' },
+        "Рукоделье и кустарные промыслы": { descr: '<ul><li class="yellow">"Картины из метизов, такелажа (3D);раскраски на стену"</li></ul>' },
+	},
+
+	"Энергетика":
+	{
+		"Электричество": { "terminator" : "" },
+		"Топливо": { "terminator" : "" },
+	},
+
+	"Медицина":
+	{
+			"Генетика, геронтология, биоинформатика": { "terminator" : "" },
+			"Нейробиология, нейрофизиология, психиатрия, психология": { "terminator" : "" },
+	},
+
+	"Пищевая промышленность": {
+		
+		"Общепит": { descr: '<ul><li class="green">Кофе на вынос + продажа чая и кофе (какао, кэроб, матча, ройбуш, цикорий)</li><li class="red">Кафе, пекарня</li></ul>', },
+		"Пищевое сырье и полуфабрикаты": { descr: '<ul><li class="green">Кофейные зерна с полосками-гриль</li><li class="green">Орехи в банке, сухофрукты, овощи, зелень</li>\
+			<li class="green">Конфеты. Прессовать сахар, какао</li>\
+			<li class="red">Производство макарон</li></ul>', },
+		"Консервы и пресервы": { descr: 'Хлеб в консервных банках', },
+	},
+
+	"Сельское хозяйство":
+    { 
+     	// descr: 'link1',
+        "Животноводство": { "terminator" : "" },
+        "Растеневодство": { "terminator" : "" },
+		
+	},
+
+	"Торговля": { descr: '<ul><li>Магазин вечных вещей</li><li>Магазин продуктов длительного хранения</li></ul>',
+		"Маркетплейс + онлайн-магазин": { "terminator" : "" },
+	},
+	"Информационные технологии":
+	{
+		"Разработка сайтов": { descr: '<ul><li>Сайт профориентации</li><li></li><li>Международное законодательство (конституции мира) &mdash; только PR эффект</li></ul>' },
+		"Разработка мобильных приложений": { "terminator" : "" },
+		"Game dev": { "terminator" : "" },
+	},
+	"Гуманитарный сектор":
+	{
+		"Масс-медиа": { descr: '<ul><li>Влог &mdash; разбор техники</li><li>Влог &mdash; урбанистическое выживание</li></ul>' },
+		"Образование": { "terminator" : "" },
+		"Управление, менеджмент": {
+			descr: 'Профсоюз',
+			"Политика, законотворчество": { "terminator" : "" },
+		},
+		"Сфера обслуживания": { "terminator" : "" },
+		"Финтех": { descr: 'Своя страховая', },
+		"Бизнес": { descr: 'ИП которое будет нанимать выпускников без опыта', },
+		
+
+	},
+	"Дизайн, эргономика": { 
+		"Ландшафтный дизайн": { "terminator" : "" },
+	},
+
+	};
+
+	// descr: '<ul><li></li><li></li></ul>'
+
+</script>
+</body>
+</html>

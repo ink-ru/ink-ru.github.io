@@ -1,0 +1,188 @@
+/* https://htmlcolorcodes.com/color-names/ */
+
+html, body {
+  margin-top: 3ex;
+  font-family: 'Roboto', sans-serif;
+  font-size: calc(8px + 1vmin);
+  color: MidnightBlue;
+}
+
+#main-wrapper {
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+
+#main-wrapper main
+{
+  padding: .6ex;
+}
+
+header h1,
+header h2
+{
+  font-size: x-large;
+  font-weight: bolder;
+  letter-spacing: .08rem;
+}
+
+header #title_acent
+{
+  color: SeaGreen;
+  text-shadow: .08ex 0px 0px SeaGreen;
+}
+
+header #title_smoke
+{
+  color: YellowGreen;
+  text-shadow: .08ex 0px 0px YellowGreen;
+}
+
+
+/* ========================================================================= */
+dialog
+{
+  box-shadow: 1ex 1ex grey;
+  border-radius: 1ex;
+  border: 1px solid silver;
+  position: fixed;
+  display: none;
+  top: .1vmin;
+}
+
+dialog *
+{
+  display: inline-block;
+}
+
+dialog::backdrop {
+  background: none;
+  opacity: 0;
+}
+
+dialog form {
+  text-align: center;
+}
+dialog figure {
+  text-align: center;
+}
+
+dialog figure figcaption {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.4ex;
+}
+
+dialog figure p,
+dialog form label {
+  padding: .4ex;
+}
+
+#dialogInput, dialog:has(form > #dialogInput:checked)
+{
+      display: none;
+}
+
+[for="dialogInput"]
+{
+  appearance: button;
+  background-color: silver;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+[for="dialogInput"]:hover
+{
+  background-color: Gainsboro;
+  border-color: DarkGray;
+}
+
+/* ========================================================================= */
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+  background-color: #111;
+}
+
+nav .active {
+  background-color: #04AA6D;
+}
+
+/* ========================================================================= */
+
+header center {
+  margin: 1em;
+  padding: 1em;
+}
+
+details {
+  margin-left: 1ex;
+  padding: 1ex;
+  border-radius: 1ex;
+  border: 1px solid silver;
+}
+
+details summary {
+  font-weight: 600;
+}
+
+summary:not(:has(+ span details))
+{
+  list-style: none;
+  font-weight: 500;
+}
+
+details span i
+{
+ display: block;
+ font-size: small;
+ font-style: italic;
+ color: grey;
+ padding: .8ex;
+ margin: .8ex;
+}
+
+details span ul
+{
+  list-style: square inside;
+}
+
+ul li.red::marker { 
+  color: red;
+}
+
+ul li.green::marker { 
+  color: green;
+}
+
+ul li.yellow::marker { 
+  color: yellow;
+}
+
+ul li.grey::marker { 
+  color: silver;
+}
