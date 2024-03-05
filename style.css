@@ -1,0 +1,101 @@
+html, body
+{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: calc(10px + 1vw);
+}
+body
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header, main, footer
+{
+  width: auto;
+}
+
+header .www_link .zocial,
+.navbuttons .zocial
+{
+  font-size: .8rem;
+  vertical-align: middle;
+}
+
+.navicons
+{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.navicons .zocial.icon:before {
+    width: 2rem;
+    height: 2rem;
+  }
+
+.navicons .zocial
+{
+  vertical-align: middle;
+  /* width: calc((6vw + 6vh)/2);
+  height:calc((6vw + 6vh)/2); */
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+}
+.navicons .zocial:has(img)
+{
+  padding:0;
+  margin:0;
+}
+.navicons .zocial img
+{
+  max-height:1rem;
+  display:inline-block;
+  height:100%;
+  border:0;
+  padding-top:0.5rem;
+}
+fieldset
+{
+  border: unset;
+}
+legend.feildset_title
+{
+  color:silver;
+  opacity:0.2;
+}
+header, footer {
+  position: fixed;
+  /* left: 46vw; */
+  width: 100%;
+  text-align: center;
+}
+header {
+  top: 4vh;
+  filter: blur(.4px);
+  opacity:.8;
+}
+header:hover {
+  top: 4vh;
+  filter: blur(0);
+  opacity:1;
+}
+footer {
+  bottom: 0;
+}
+header h2,
+ {
+  font-size: clamp(.8rem, 1vw, 2rem);
+}
+header sub
+{
+  font-size: clamp(.4rem, .8vw, 1rem);
+}
+
+.navbuttons .telegramim_button
+{
+  font-size: clamp(.8rem, 1vw, 2rem)!important;
+}
