@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css?family=Exo+2:400,700&subset=cyrillic");
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Play:wght@400;700&family=Unbounded:wght@200..900&display=swap');
+
+/*https://john-doe.neocities.org/dist/*/
+
+/* Color scheme */
+* {
+  --textcolor: rgb(33, 37, 41);
+  --bgcolor_var: white;
+  --highlight: #2749c9;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    --textcolor: #dadada;
+    --bgcolor_var: #141414;
+    --highlight: #ffc400;
+  }
+}
+
+html,
+body#app
+{
+	font-size: calc(6px + clamp( .55rem, .2vw, .2vh));
+	font-family: Roboto, sans-serif;
+	color: var(--textcolor);
+}
+
+body
+{
+	background: var(--bgcolor_var);
+/*	background: linear-gradient(90deg, #eeefee, #eceeec 80%, #fdfefd 20%);*/
+/*	background: linear-gradient(90deg, gray 5%, silver 5%, black 65%, silver 5%, #fdfefd 20%);*/
+	/* MintCream, HoneyDew, DarkSeaGreen */
+/*	background: linear-gradient(90deg, white, #a8edea 5%, #fed6e3 100%);*/
+/*background: linear-gradient(90deg, white, lightgreen, darkblue);*/
+
+background: linear-gradient(to right,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 75%,rgba(215,222,227,1) 75%,rgba(229,235,238,1) 75%,rgba(245,247,249,1) 75%,rgba(245,247,249,1) 75%);
+
+
+	/*background:
+        linear-gradient(#ddffdd, transparent),
+        linear-gradient(to top left, #ccccff, transparent),
+        linear-gradient(to top right, #fdcdcc, transparent);
+  background-size: 100% 120%;*/
+  background-blend-mode: screen;
+}
+
+.page-title
+{
+	 font-family: "Unbounded", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+	letter-spacing: .1rem;
+	color: lightseagreen;
+}
+
+/* ==== Mosaic grid ==== */
+/*https://masonry.desandro.com/*/
+
+.cards-grid .card
+{
+	min-height: 10rem;
+
+	h1, h2, h3, h4, h5
+	{
+		font-size: 1.1rem;
+	}
+}
+
+.cards-grid .card:hover
+{
+	filter: none!important;
+	box-shadow: 1px 1px 2px silver;
+}
+
+.h-full
+{
+	height: calc(100% - .5rem);
+}
+
+.h-half
+{
+	height: calc(50% - .5rem);
+}
+
+.h-33
+{
+	height: calc(33.3% - .5rem);
+}
+
+.h-66
+{
+	height: calc(66.6% - .5rem);
+}
+
+.h-half-of-third
+{
+	height: calc(33.5%/2 - .5rem);
+}
+
+#app .card.h-fit
+{
+	min-height: fit-content;
+}
+
+body#app .h-50vh
+{
+	min-height: max(35rem, 50vh);
+/*	height: fit-content;*/
+}
+
+/*  ========= Navigation ========= */
+
+#nav-list {
+	top:10vmin;
+	position:fixed;
+}
+
+#nav-list .list-group-item.active,
+.cards-grid .card .badge.active
+{
+	background-color: cornflowerblue;
+	font-weight: bold;
+	opacity: 1!important;
+}
+
+.nav#nav-list-h .nav-link
+{
+	padding-right: .06rem;
+	padding-left: .06rem;
+	font-weight: bold;
+}
+
+.nav#nav-list-h .vr
+{
+	height: 1rem;
+	margin-top: .66rem;
+}
+
+/*  ========= Sections ========= */
+
+/*
+.section, .section:target ~ #about  {
+  display: none;
+}
+#about, .section:target {
+  display: flex;
+}
+*/
+
+
+/*  ========= Sliding cards ========= */
+
+.overlay {
+  background-color: Gainsboro;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  
+  width: 0;
+  left: 106%;
+  opacity: 0;
+
+  transition: .5s ease, opacity 0.5s;
+}
+
+.card:hover .overlay {
+  width: 100%;
+  left: 0;
+  opacity: 1;
+}
+
+/*  ========= Progress scroll ========= */
+
+/* The progress container (grey background) */
+.progress-container {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: .4ex;
+  background: Gainsboro;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  height: .4ex;
+  background: cornflowerblue;
+  width: 0%;
+}
